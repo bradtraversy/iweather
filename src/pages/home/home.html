@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>iWeather</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding class="home">
+  <ion-grid *ngIf="weather">
+    <ion-row>
+      <ion-col width-50 offset-25>
+        <h2 class="location">{{weather.display_location.full}}</h2>
+        <div class="icon"><img src="{{weather.icon_url}}" alt=""></div>
+        <h3 class="desc">{{weather.weather}}</h3>
+        <h1 class="temp">{{weather.temp_f}}&deg;</h1>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col width-100>
+        <ion-list>
+          <ion-item>
+            <strong>Temp: </strong> {{weather.temperature_string}}
+          </ion-item>
+          <ion-item>
+            <strong>Relative Humidity: </strong> {{weather.relative_humidity}}
+          </ion-item>
+          <ion-item>
+            <strong>Dewpoint: </strong> {{weather.dewpoint_string}}
+          </ion-item>
+          <ion-item>
+            <strong>Visibility: </strong> {{weather.visibility_mi}}
+          </ion-item>
+          <ion-item>
+            <strong>Heat Index: </strong> {{weather.heat_index_string}}
+          </ion-item>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
