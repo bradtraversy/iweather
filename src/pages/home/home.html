@@ -1,39 +1,119 @@
-<ion-header>
-  <ion-navbar>
-    <ion-title>iWeather</ion-title>
+<ion-header no-border>
+  <ion-navbar transparent>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>{{cityName}}</ion-title>
   </ion-navbar>
+
 </ion-header>
 
-<ion-content padding class="home">
-  <ion-grid *ngIf="weather">
-    <ion-row>
-      <ion-col width-50 offset-25>
-        <h2 class="location">{{weather.display_location.full}}</h2>
-        <div class="icon"><img src="{{weather.icon_url}}" alt=""></div>
-        <h3 class="desc">{{weather.weather}}</h3>
-        <h1 class="temp">{{weather.temp_f}}&deg;</h1>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col width-100>
-        <ion-list>
-          <ion-item>
-            <strong>Temp: </strong> {{weather.temperature_string}}
-          </ion-item>
-          <ion-item>
-            <strong>Relative Humidity: </strong> {{weather.relative_humidity}}
-          </ion-item>
-          <ion-item>
-            <strong>Dewpoint: </strong> {{weather.dewpoint_string}}
-          </ion-item>
-          <ion-item>
-            <strong>Visibility: </strong> {{weather.visibility_mi}}
-          </ion-item>
-          <ion-item>
-            <strong>Heat Index: </strong> {{weather.heat_index_string}}
-          </ion-item>
-        </ion-list>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-</ion-content>
+
+<ion-content [ngStyle]="{'background-image': 'url('+ bgImage +')'}" class="slides-page" setbackground bg-image="{{bgImage}}">
+  <ion-slides pager="true" #slideRef (ionSlideDidChange)="slideChanged()">
+    <ion-slide *ngFor="let slide of slides">
+      <ion-card class="current-temp">
+        <ion-card-content class="cardContent">
+          <ion-grid>
+            <ion-row>
+              <ion-col width-50 offset-25>
+                <h2 class="temp">{{ slide.current.main.temp }}&deg;</h2>
+                <ion-avatar><img src="{{ slide.icon }}"></ion-avatar>
+                <h3 class="desc">{{ slide.current.weather[0].description }}</h3>
+              </ion-col>
+            </ion-row>
+            <ion-row class="row-content">
+              <ion-col col-4>{{ windDirection(slide.current.wind.deg) }}</ion-col>
+              <ion-col col-4>{{ slide.current.wind.speed }}M/S</ion-col>
+              <ion-col col-4>{{ slide.current.main.humidity }}%</ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card class="card-ion">
+        <ion-card-content>
+          <ion-card-header>Details</ion-card-header>
+          <ion-grid class="card-list">
+            <ion-row class="rowDetail">
+              <ion-col col-6 class="itemName">
+                <ion-icon name="cloud"></ion-icon>
+                Pressure
+              </ion-col>
+              <ion-col col-6 class="col_ion">{{ slide.current.main.pressure}}HPa</ion-col>
+            </ion-row>
+            <ion-row class="rowDetail">
+              <ion-col col-6 class="itemName">
+                <ion-icon name="umbrella"></ion-icon>
+                Humidity
+              </ion-col>
+              <ion-col col-6 class="col_ion">{{ slide.current.main.humidity }}%</ion-col>
+            </ion-row>
+            <ion-row class="rowDetail">
+              <ion-col col-6 class="itemName">
+                <ion-icon name="eye"></ion-icon>
+                Visibility
+              </ion-col>
+              <ion-col col-6 class="col_ion">{{ slide.current.visibility }}</ion-col>
+            </ion-row>
+            <ion-row class="rowDetail">
+              <ion-col col-6 class="itemName">
+                <ion-icon name="ios-globe"></ion-icon>
+                Longitude
+              </ion-col>
+              <ion-col col-6 class="col_ion">{{ slide.current.coord.lon }}</ion-col>
+            </ion-row>
+            <ion-row class="rowDetail">
+              <ion-col col-6 class="itemName">
+                <ion-icon name="ios-globe"></ion-icon>
+                Latitude
+              </ion-col>
+              <ion-col col-6 class="col_ion">{{ slide.current.coord.lat }}</ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card class="card-ion">
+        <ion-card-content>
+          <ion-card-header>Wind</ion-card-header>
+          <ion-grid class="card-list">
+            <ion-row class="rowDetail">
+              <ion-col col-6 class="itemName">
+                <ion-icon name="compass"></ion-icon>
+                Direction
+              </ion-col>
+              <ion-col col-6 class="col_ion">{{ windDirection(slide.current.wind.deg) }}</ion-col>
+            </ion-row>
+            <ion-row class="rowDetail">
+              <ion-col col-6 class="itemName">
+                <ion-icon name="speedometer"></ion-icon>
+                Speed
+              </ion-col>
+              <ion-col col-6 class="col_ion">{{ slide.current.wind.speed}}M/S</ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card-content>
+      </ion-card>
+
+
+      <ion-card class="card-ion" style="margin-bottom: 30px !important">
+        <ion-card-content>
+          <ion-card-header>5 Days Forecast(3 hours interval)</ion-card-header>
+          <ion-grid class="card-grid">
+            <ion-row *ngFor="let forecast of slide.forecast.list; let i = index">
+              <ion-col col-6>{{ GetDay(forecast.dt) }}</ion-col>
+              <ion-col col-6>{{ GetDate(forecast.dt) }}</ion-col>
+              <ion-col col-6 class="col-img">
+                <img src="http://openweathermap.org/img/w/{{forecast.weather[0].icon}}.png">
+              </ion-col>
+              <ion-col col-6>{{ forecast.main.temp }}&deg;</ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card-content>
+      </ion-card>
+
+    </ion-slide>
+  </ion-slides>
+
+  </ion-content>

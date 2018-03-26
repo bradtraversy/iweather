@@ -1,3 +1,100 @@
-page-home {
+.slides-page {
+    ion-slides {
+        height: auto !important;
+    }
 
+    .current-temp {
+        color: color($colors, lightwhite);
+        display: block;
+        padding-bottom: 80%;
+        width: 80%;
+        border-radius: 50%;
+        margin: 0 auto;
+        height: 0;
+    }
+
+    ion-card {
+        background: rgba(27, 24, 24, 0.5);
+        color: color($colors, lightwhite);
+    }
+
+    .temp{
+        font-size:30px;
+        text-align: center;
+        font-weight: normal;
+        margin: 0px 0px 2px 0px;
+        color: color($colors, lightwhite);
+    }
+    
+    ion-avatar{
+        display: inline-block !important;
+        text-align: center !important
+    }
+    
+    .desc{
+        font-size:15px;
+        color: color($colors, lightwhite);
+        text-align: center;
+    }
+
+    .row-content {
+        margin: 15px 0px 15px 0px;
+        background: rgba(36, 32, 32, 0.4);
+        color: white;
+        height: 28px;
+        border-radius: 7px;
+        font-size: 12px;
+    }
+
+    .current-temp ion-grid {
+        margin-top: 10px !important;
+    }
+
+    .card-ion {
+        margin-top: 20px;
+    }
+
+    .card-ion ion-card-header {
+        color: color($colors, lightwhite);
+        float: left !important;
+        padding-left: 24px !important;
+    }
+
+    .card-ion .card-grid {
+        .col-img{
+            position: relative !important;
+            top: -10px !important;
+        }
+    }
+
+    .card-ion .card-list .rowDetail {
+        font-size: 1.5rem !important;
+        padding-bottom: 10px !important;
+    }
+
+    .card-ion .card-list .rowDetail .itemName {
+        display: inline-block !important;
+        text-align: left !important;
+    }
+
+    .card-ion .card-list .rowDetail .itemName ion-icon {
+        float: left !important;
+        padding: 0px 17px 0px 17px !important;
+    }
+
+    .card-ion .card-list .col_ion {
+        padding-left: 50px !important;
+        text-align: right !important;
+    }
+}
+
+.bar-button-default-ios, .button-inner {
+    color: color($colors, lightwhite);
+}
+
+ion-content{
+    background-repeat: no-repeat;
+    background-position: top;
+    background-size: cover;
+    background-color: black;
 }
